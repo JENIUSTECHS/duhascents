@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DUHASCENTS | Islamic Fragrances & Attars</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --hover-transition-duration: .25s;
+      --hover-transition-timing: ease-out;
+      --color-background: #fbfbfb; 
+      --color-foreground: #000000;
+      --color-primary-button-text: #ffffff;
+      --color-primary-button-background: #000000;
+      --color-primary-button-hover-background: #262626;
+      --color-input-background: #ffffff;
+      --color-input-text: #333333;
+      --accent-gold: #d79a47;
+      --accent-yellow: #ffdd1c;
+      --surface-light: #eef1ea;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 22.4px;
+      font-weight: 400;
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Barlow', sans-serif; }
+    a { text-decoration: none; color: inherit; cursor: pointer; }
+    button { cursor: pointer; font-family: inherit; }
+
+    .button-primary {
+      background: var(--color-primary-button-background);
+      color: var(--color-primary-button-text);
+      border: 1px solid transparent;
+      border-radius: 34px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all var(--hover-transition-duration) var(--hover-transition-timing);
+      text-align: center;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .button-primary:hover { background: var(--color-primary-button-hover-background); }
+    .button-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .badge-pill {
+      background: #ffd700;
+      color: #111111;
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
+      display: inline-block;
+      text-transform: capitalize;
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 12px; }
+    @media (min-width: 768px) { .container { padding: 0 24px; } }
+    
+    .d-flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .align-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-4 { gap: 16px; }
+    
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .logo-text {
+      font-family: 'Barlow', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #000;
+      text-transform: uppercase;
+    }
+
+    .desktop-nav { display: none; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    @media (min-width: 1024px) {
+      .desktop-nav { display: flex; }
+      .mobile-menu-btn { display: none; }
+    }
+
+    .nav-link {
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s, opacity 0.2s;
+      color: #333;
+    }
+    .nav-link:hover { color: var(--accent-gold); }
+    .nav-link.active { font-weight: 700; color: #000; border-bottom: 2px solid var(--accent-gold); padding-bottom: 2px; }
+
+    .header-actions { display: flex; align-items: center; gap: 20px; }
+    .icon-btn {
+      background: none; border: none; display: flex; align-items: center;
+      color: #000; transition: opacity 0.2s; position: relative;
+    }
+    .icon-btn:hover { opacity: 0.6; }
+    
+    .cart-badge {
+      position: absolute; top: -6px; right: -8px;
+      background: var(--accent-gold); color: #fff;
+      font-size: 9px; font-weight: 700; height: 16px; min-width: 16px;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 0 4px;
+    }
+
+    .search-container {
+      position: absolute; top: 100%; left: 0; width: 100%;
+      background: #fff; padding: 16px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: none; border-bottom: 1px solid #eee;
+    }
+    .search-container.active { display: block; animation: slideDown 0.3s ease; }
+    .search-input {
+      width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;
+      font-size: 14px; outline: none; font-family: inherit;
+    }
+    .search-input:focus { border-color: var(--accent-gold); }
+
+    @keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 150;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .mobile-sidebar, .cart-sidebar {
+      position: fixed; top: 0; height: 100vh; background: #ffffff; z-index: 200;
+      transition: 0.3s ease; display: flex; flex-direction: column;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    }
+    
+    .mobile-sidebar { left: -100%; width: 80%; max-width: 350px; padding: 24px; background: #111; color: #fff; }
+    .mobile-sidebar.open { left: 0; }
+    .mobile-sidebar .nav-link { color: #fff; font-size: 16px; padding: 12px 0; display: block; border-bottom: 1px solid #333; }
+    .mobile-sidebar .nav-link.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+
+    .cart-sidebar { right: -100%; width: 100%; max-width: 420px; }
+    .cart-sidebar.open { right: 0; }
+    .cart-header { padding: 24px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    
+    .cart-item { display: flex; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid #f5f5f5; align-items: center; }
+    .cart-item-checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: #000; }
+    .cart-item img { width: 70px; height: 70px; object-fit: contain; background: #f9f9f9; border-radius: 8px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+    .cart-item-price { font-weight: 700; color: var(--accent-gold); font-size: 14px; }
+    .cart-qty-controls { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+    .qty-btn-small { background: #eee; border: none; width: 24px; height: 24px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .qty-btn-small:hover { background: #ddd; }
+    .cart-remove { background: none; border: none; color: #999; cursor: pointer; font-size: 12px; text-decoration: underline; margin-left: auto; }
+
+    .cart-footer { padding: 24px; border-top: 1px solid #eee; background: #fafafa; }
+    .cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .whatsapp-btn { background: #25D366; color: #fff; width: 100%; font-size: 16px; padding: 16px; border:none; border-radius:34px; font-weight:600; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:8px;}
+    .whatsapp-btn:hover { background: #1ebc59; }
+
+    main { flex: 1; padding-bottom: 40px; }
+    .page-section { display: none; padding: 40px 0; animation: fadeIn 0.4s ease; }
+    .page-section.active { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInLeft { 
+      0% { opacity: 0; transform: translateX(-40px); } 
+      100% { opacity: 1; transform: translateX(0); } 
+    }
+
+    .hero-banner {
+      background: linear-gradient(to right, rgba(0,0,0,0.02), rgba(0,0,0,0.05));
+      border-radius: 20px;
+      padding: 40px 24px;
+      text-align: center;
+      margin-bottom: 40px;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+    .hero-banner h2 { font-size: 36px; margin-bottom: 16px; color: var(--accent-gold); }
+    .hero-banner p { font-size: 16px; max-width: 600px; margin: 0 auto; color: #555; line-height: 1.6; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      margin-bottom: 24px; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid #eee;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+    @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 32px 24px; } }
+
+    .product-card {
+      cursor: pointer; position: relative; display: flex; flex-direction: column; height: 100%;
+      background: #fff; border-radius: 16px; padding: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    @media (min-width: 768px) { .product-card { padding: 16px; } }
+    
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+    .product-card.slide-anim, .category-group.slide-anim { 
+      animation: slideInLeft 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+      opacity: 0; 
+    }
+
+    .product-image-container {
+      position: relative; background: #f9f9f9; aspect-ratio: 4/5;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px; overflow: hidden; margin-bottom: 12px;
+    }
+    .product-img { width: 100%; height: 100%; object-fit: contain; padding: 16px; transition: transform 0.7s ease-out; }
+    .product-card:hover .product-img { transform: scale(1.08); }
+    .badges { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 2; }
+
+    .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; }
+    .product-card:hover .product-title { color: var(--accent-gold); }
+    .product-price { font-size: 15px; font-weight: 700; margin-top: auto; }
+    .product-price-old { text-decoration: line-through; color: #999; font-size: 12px; margin-left: 6px; font-weight: 400; }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center;
+      padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal.open { opacity: 1; pointer-events: all; }
+    .modal-content {
+      position: relative; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+      width: 100%; max-width: 900px; max-height: 95vh; border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2); display: flex; flex-direction: column;
+      overflow-y: auto; transform: translateY(20px) scale(0.95); transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    @media (min-width: 768px) { .modal-content { flex-direction: row; overflow: hidden; } }
+    .modal.open .modal-content { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; background: #fff; border: none; width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 10; cursor: pointer;
+    }
+
+    .modal-gallery-col { width: 100%; background: #fcfcfc; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    @media (min-width: 768px) { .modal-gallery-col { width: 50%; } }
+    .modal-main-img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 16px; border: 1px solid #eee; padding: 24px; }
+    .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+    .modal-thumbnails::-webkit-scrollbar { height: 4px; }
+    .modal-thumbnails::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+    .thumb-img {
+      width: 60px; height: 60px; object-fit: contain; border: 1px solid #ddd;
+      border-radius: 8px; cursor: pointer; padding: 4px; background: #fff;
+      transition: border-color 0.2s; flex-shrink: 0;
+    }
+    .thumb-img.active, .thumb-img:hover { border-color: var(--accent-gold); }
+
+    .modal-info-col { width: 100%; padding: 24px; display: flex; flex-direction: column; }
+    @media (min-width: 768px) { .modal-info-col { width: 50%; padding: 40px; } }
+    .modal-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; line-height: 1.2; }
+    .modal-price-wrap { margin-bottom: 24px; display: flex; align-items: baseline; gap: 8px; }
+    .modal-price { font-size: 24px; font-weight: 700; color: var(--accent-gold); }
+    .modal-desc { color: #555; margin-bottom: 32px; line-height: 1.6; font-size: 14px; }
+    
+    .qty-selector { display: inline-flex; align-items: center; border: 1px solid #dfdfdf; border-radius: 50px; overflow: hidden; margin-bottom: 24px; }
+    .qty-btn { background: #f9f9f9; border: none; padding: 12px 16px; cursor: pointer; font-weight: bold; }
+    .qty-btn:hover { background: #eee; }
+    .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-weight: 600; outline: none; }
+    .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .text-content { max-width: 800px; margin: 0 auto; text-align: center; }
+    .text-content h2 { color: var(--accent-gold); }
+    .text-content p { color: #555; line-height: 1.8; margin-bottom: 16px; font-size: 16px; }
+
+    /* Floating Reviews Marquee */
+    .reviews-ticker-wrapper {
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 30px 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      margin-top: 20px;
+    }
+    .reviews-ticker {
+      display: flex;
+      gap: 30px;
+      width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+    .review-item {
+      background: #fff;
+      padding: 20px 24px;
+      border-radius: 16px;
+      min-width: 320px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .review-stars { color: var(--accent-gold); }
+    .review-text { font-style: italic; color: #555; line-height: 1.5; }
+    .review-author { font-weight: 700; font-size: 13px; color: #111; }
+    
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } 
+    }
+
+    /* Footer Styles */
+    footer { background: #fff; padding: 60px 0 30px; border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } } /* Changed from 4 to 3 since Newsletter is removed */
+    .footer-col h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; color: #666; font-size: 13px; }
+    .footer-col a:hover { color: var(--accent-gold); }
+    
+    .footer-bottom {
+      border-top: 1px solid #eee; padding-top: 24px; display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center; color: #888; font-size: 13px; gap: 16px;
+    }
+    .jenius-brand { font-weight: 700; color: #000; }
+
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: #000; color: #fff; padding: 12px 24px; border-radius: 50px;
+      font-weight: 500; opacity: 0; transition: all 0.3s ease; z-index: 500; font-size: 14px;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <header class="glass-panel">
+    <div class="container d-flex align-center justify-between">
+      
+      <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+
+      <a class="logo-text" onclick="navigate('HOME')">DUHASCENTS</a>
+
+      <nav class="desktop-nav" id="desktopNav">
+        <a class="nav-link active" onclick="navigate('HOME')">Home</a>
+        <a class="nav-link" onclick="navigate('MONTH END SALE')">MONTH END SALE</a>
+        <a class="nav-link" onclick="navigate('SUMMER PERFUMES')">SUMMER PERFUMES</a>
+        <a class="nav-link" onclick="navigate('BEST SELLERS')">BEST SELLERS</a>
+        <a class="nav-link" onclick="navigate('ALL PRODUCTS')">ALL PRODUCTS</a>
+        <a class="nav-link" onclick="navigate('OUR BRANDS')">OUR BRANDS</a>
+        <a class="nav-link" onclick="navigate('ABOUT US')">About Us</a>
+        <a class="nav-link" onclick="navigate('CONTACT US')">Contact Us</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" onclick="toggleSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="icon-btn" onclick="toggleCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="search-container" id="searchBar">
+      <div class="container d-flex align-center gap-4">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search fragrances..." oninput="handleSearch(this.value)">
+        <button class="icon-btn" onclick="toggleSearch()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="mainOverlay" onclick="closeAllOverlays()"></div>
+
+  <aside class="mobile-sidebar" id="mobileSidebar">
+    <div class="d-flex justify-between align-center" style="margin-bottom: 30px;">
+      <h2 style="margin:0; font-size: 20px;">MENU</h2>
+      <button class="icon-btn" onclick="toggleMobileMenu()" style="color:#fff;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <nav class="flex-col d-flex" id="mobileNav">
+      <a class="nav-link active" onclick="navigate('HOME')">HOME</a>
+      <a class="nav-link" onclick="navigate('MONTH END SALE')">MONTH END SALE</a>
+      <a class="nav-link" onclick="navigate('SUMMER PERFUMES')">SUMMER PERFUMES</a>
+      <a class="nav-link" onclick="navigate('BEST SELLERS')">BEST SELLERS</a>
+      <a class="nav-link" onclick="navigate('ALL PRODUCTS')">ALL PRODUCTS</a>
+      <a class="nav-link" onclick="navigate('OUR BRANDS')">OUR BRANDS</a>
+      <a class="nav-link" onclick="navigate('ABOUT US')">ABOUT US</a>
+      <a class="nav-link" onclick="navigate('CONTACT US')">CONTACT US</a>
+    </nav>
+  </aside>
+
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3 class="font-heading" style="margin:0; font-size:20px;">Your Cart</h3>
+      <button class="icon-btn" onclick="toggleCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Selected Total</span>
+        <span id="cartTotal">PKR 0</span>
+      </div>
+      <p style="font-size: 12px; color: #666; margin-bottom: 16px; text-align: center;">Only checked items are included in the total.</p>
+      <button class="whatsapp-btn" onclick="checkoutWhatsApp()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Order Now
+      </button>
+    </div>
+  </aside>
+
+  <main class="container">
+    
+    <!-- Products View -->
+    <div id="view-products" class="page-section active">
+      <div class="hero-banner glass-panel">
+        <h2 id="pageTitle">Welcome to DUHASCENTS</h2>
+        <p>Embrace the essence of peace, love, and spiritual harmony with our premium Islamic fragrances and alcohol-free attars.</p>
+      </div>
+
+      <div class="toolbar">
+        <h3 id="categoryTitle" class="font-heading" style="font-size: 20px;">All Collection</h3>
+        <span style="color: #666; font-size: 13px;" id="itemCount">0 items</span>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- JS Injects Products -->
+      </div>
+    </div>
+
+    <!-- About Us View -->
+    <div id="view-about" class="page-section">
+      <div class="text-content glass-panel" style="padding: 60px 24px; border-radius: 20px;">
+        <h2 class="font-heading" style="font-size: 36px; margin-bottom: 24px;">About DUHASCENTS</h2>
+        <p>Welcome to DUHASCENTS, where fragrance meets faith. We are dedicated to providing the finest, alcohol-free Islamic perfumes and attars that elevate your spiritual journey.</p>
+        <p>Our carefully curated collections are inspired by the rich heritage of Islamic perfumery, blending traditional notes like Oud, Musk, and Rose with contemporary elegance. We believe a good scent brings peace to the mind and harmony to the soul.</p>
+      </div>
+    </div>
+
+    <!-- Contact Us View -->
+    <div id="view-contact" class="page-section">
+      <div class="text-content glass-panel" style="padding: 60px 24px; border-radius: 20px;">
+        <h2 class="font-heading" style="font-size: 36px; margin-bottom: 24px;">Contact Us</h2>
+        <p>We are always here to assist you with your orders and inquiries.</p>
+        <div style="margin-top: 32px; padding: 24px; background: rgba(215, 154, 71, 0.1); border-radius: 12px; display: inline-block;">
+          <h4 style="margin-bottom: 8px;">Official Support & WhatsApp Orders</h4>
+          <!-- Make the number clickable directly to WhatsApp -->
+          <a href="https://wa.me/923446000670" target="_blank" style="font-size: 24px; font-weight: 700; color: #000; margin: 0; text-decoration:none; display:inline-block; transition:color 0.2s;" onmouseover="this.style.color='#d79a47'" onmouseout="this.style.color='#000'">
+            +92 344 6000670
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Floating Reviews Section -->
+  <div class="reviews-ticker-wrapper">
+    <div class="reviews-ticker" id="reviewsTicker">
+      <!-- Injected via JS -->
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>HELP</h4>
+          <ul>
+            <li><a onclick="navigate('ABOUT US')">About Us</a></li>
+            <li><a onclick="navigate('CONTACT US')">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CONTACT INFO</h4>
+          <ul>
+            <li>Official Support & Orders:</li>
+            <li style="margin-top: 4px;">
+              <!-- Make the footer number clickable too -->
+              <a href="https://wa.me/923446000670" target="_blank" style="font-weight: 600; color: #000; font-size: 16px;">+92 344 6000670</a>
+            </li>
+            <li>Available on WhatsApp</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a onclick="navigate('ALL PRODUCTS')">All Products</a></li>
+            <li><a onclick="navigate('BEST SELLERS')">Best Sellers</a></li>
+            <li><a onclick="navigate('MONTH END SALE')">Special Offers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 DUHASCENTS. <span class="jenius-brand">Created by JeniusTech</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="quickViewModal">
+    <div class="modal-backdrop" style="position: absolute; inset: 0;" onclick="closeModal()"></div>
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div class="modal-gallery-col">
+        <img id="modalMainImg" src="" alt="Product Image" class="modal-main-img">
+        <div class="modal-thumbnails" id="modalThumbnails">
+          <!-- Thumbnails injected here -->
+        </div>
+      </div>
+      
+      <div class="modal-info-col">
+        <h2 class="modal-title" id="modalTitle">Title</h2>
+        <div class="modal-price-wrap">
+          <div class="modal-price" id="modalPrice">PKR 0</div>
+          <div class="product-price-old" id="modalOldPrice" style="font-size: 16px;"></div>
+        </div>
+        <p class="modal-desc" id="modalDesc">Description goes here...</p>
+        
+        <div style="margin-bottom: 8px; font-weight: 600; font-size: 13px; text-transform: uppercase; color: #555;">Quantity</div>
+        <div class="qty-selector">
+          <button class="qty-btn" onclick="updateModalQty(-1)">-</button>
+          <input type="number" class="qty-input" id="qtyInput" value="1" min="1" readonly>
+          <button class="qty-btn" onclick="updateModalQty(1)">+</button>
+        </div>
+        
+        <div style="margin-top: auto;">
+          <button class="button-primary" style="width: 100%; padding: 16px; font-size: 16px;" onclick="addCurrentModalToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Action successful</div>
+
+  <script>
+    const CONTACT_PHONE = "923446000670";
+
+    const products = [
+      {
+        id: 1,
+        title: "DUHASCENTS Oud Al Madina | Premium Woody Attar",
+        price: 8500, oldPrice: 12500,
+        badges: ["Best Seller"],
+        categories: ["BEST SELLERS", "ALL PRODUCTS", "OUR BRANDS"],
+        description: "A deeply spiritual, long-lasting Oud imported directly from the heart of Madina. Notes of rich woods and subtle spices perfect for daily prayers and special occasions.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/upscent_perfume.jpg?v=1784009763&width=3840",
+          "https://doorscent.com/cdn/shop/files/115.webp?v=1781594312&width=3840",
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_15.png?v=1787039158&width=832"
+        ]
+      },
+      {
+        id: 2,
+        title: "Jannatul Firdous Luxe | Fresh Floral Essence",
+        price: 4500, oldPrice: 6000,
+        badges: ["Summer Edition", "Sale"],
+        categories: ["SUMMER PERFUMES", "MONTH END SALE", "ALL PRODUCTS"],
+        description: "An uplifting burst of fresh florals and green notes. Alcohol-free and perfectly balanced to keep you feeling fresh throughout the summer heat.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/115.webp?v=1781594312&width=3840",
+          "https://doorscent.com/cdn/shop/files/upscent_perfume.jpg?v=1784009763&width=3840"
+        ]
+      },
+      {
+        id: 3,
+        title: "Misk Al Kaaba | Pure Musk Blend",
+        price: 12000, oldPrice: 15000,
+        badges: ["Premium"],
+        categories: ["ALL PRODUCTS", "OUR BRANDS", "BEST SELLERS"],
+        description: "The purest form of black musk, sweet and captivating. A heavy, enduring fragrance that stays with you, inspiring harmony and peace.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_19.png?v=1787040656&width=832",
+          "https://doorscent.com/cdn/shop/files/113.webp?v=1781594309&width=3840"
+        ]
+      },
+      {
+        id: 4,
+        title: "Ruh Khus Elegance | Earthy Vetiver",
+        price: 6500, oldPrice: null,
+        badges: ["New"],
+        categories: ["ALL PRODUCTS", "SUMMER PERFUMES"],
+        description: "Experience the cool, earthy grounding of pure Khus (Vetiver). Excellent for focus and calming the senses during the day.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/113.webp?v=1781594309&width=3840",
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_12.png?v=1787038637&width=1200"
+        ]
+      },
+      {
+        id: 5,
+        title: "Zamzam Aqua Fresh | Oceanic Light Scent",
+        price: 3200, oldPrice: 4500,
+        badges: ["Sale"],
+        categories: ["ALL PRODUCTS", "MONTH END SALE", "SUMMER PERFUMES"],
+        description: "A modern take on Islamic fragrances. Crisp, clean, and incredibly refreshing with oceanic undertones.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_12.png?v=1787038637&width=1200",
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_15.png?v=1787039158&width=832"
+        ]
+      },
+      {
+        id: 6,
+        title: "DUHASCENTS Royal Amber",
+        price: 9800, oldPrice: 11500,
+        badges: ["Trending"],
+        categories: ["ALL PRODUCTS", "OUR BRANDS", "MONTH END SALE"],
+        description: "A warm, glowing amber core wrapped in delicate floral and spicy accents. Perfect for evenings and formal gatherings.",
+        images: [
+          "https://doorscent.com/cdn/shop/files/Doorscent_upscent_perfume.webp?v=1784009794&width=3840",
+          "https://doorscent.com/cdn/shop/files/pomelli_photoshoot_image_1_1_0818_19.png?v=1787040656&width=832"
+        ]
+      }
+    ];
+
+    const customerReviews = [
+      { text: "Amazing authentic scent! Brings me peace during my daily prayers.", author: "- Ahmed M." },
+      { text: "Very long lasting. The Oud Al Madina stays on my clothes all day.", author: "- Bilal R." },
+      { text: "Beautiful packaging and fast delivery via WhatsApp. Highly recommended!", author: "- Sara T." },
+      { text: "Misk Al Kaaba is exactly what I was looking for. Pure and rich.", author: "- Usman H." },
+      { text: "Excellent customer service and top quality Islamic attars.", author: "- Fatima A." }
+    ];
+
+    let cart = [];
+    let activeCategory = 'HOME';
+    let searchQuery = '';
+    let currentModalProduct = null;
+    let currentModalQty = 1;
+
+    function formatPKR(num) {
+      return num.toLocaleString('en-PK');
+    }
+
+    // Hash Routing Logic for Back Button Support
+    function navigate(page, pushToHistory = true) {
+      // Setup visual active states
+      document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('active', link.innerText.trim().toUpperCase() === page.toUpperCase());
+      });
+      
+      closeAllOverlays();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (page === 'ABOUT US') {
+        document.getElementById('view-about').classList.add('active');
+      } else if (page === 'CONTACT US') {
+        document.getElementById('view-contact').classList.add('active');
+      } else {
+        document.getElementById('view-products').classList.add('active');
+        activeCategory = page;
+        
+        if(page === 'HOME') {
+            document.getElementById('pageTitle').innerText = "Welcome to DUHASCENTS";
+            document.getElementById('categoryTitle').innerText = "All Collection";
+        } else {
+            document.getElementById('pageTitle').innerText = page;
+            document.getElementById('categoryTitle').innerText = page;
+        }
+        renderGrid();
+      }
+
+      // Handle the browser history (URL Hash)
+      if (pushToHistory) {
+        window.location.hash = encodeURIComponent(page);
+      }
+    }
+
+    // Listen for back/forward buttons using the Hash
+    window.addEventListener('hashchange', () => {
+      let hash = decodeURIComponent(window.location.hash.substring(1));
+      if (!hash) hash = 'HOME';
+      navigate(hash, false); // pass false to avoid infinite loop
+    });
+
+    // Populate Reviews Ticker
+    function renderReviews() {
+      const ticker = document.getElementById('reviewsTicker');
+      // Duplicate reviews array to create a seamless infinite loop
+      const combinedReviews = [...customerReviews, ...customerReviews, ...customerReviews]; 
+      
+      const starsHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`.repeat(5);
+
+      ticker.innerHTML = combinedReviews.map(r => `
+        <div class="review-item">
+          <div class="review-stars">${starsHTML}</div>
+          <div class="review-text">"${r.text}"</div>
+          <div class="review-author">${r.author}</div>
+        </div>
+      `).join('');
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileSidebar').classList.toggle('open');
+      document.getElementById('mainOverlay').classList.toggle('open');
+    }
+    function toggleCart() {
+      document.getElementById('cartSidebar').classList.toggle('open');
+      document.getElementById('mainOverlay').classList.toggle('open');
+    }
+    function closeAllOverlays() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.getElementById('mainOverlay').classList.remove('open');
+      document.getElementById('searchBar').classList.remove('active');
+    }
+
+    function toggleSearch() {
+      const bar = document.getElementById('searchBar');
+      bar.classList.toggle('active');
+      if (bar.classList.contains('active')) document.getElementById('searchInput').focus();
+    }
+    function handleSearch(val) {
+      searchQuery = val.toLowerCase();
+      if(document.getElementById('view-products').classList.contains('active')){
+          renderGrid();
+      } else {
+          navigate('HOME'); 
+      }
+    }
+
+    function createProductCardHTML(p, delayIndex) {
+      return `
+        <div class="product-card slide-anim" style="animation-delay: ${delayIndex}s" onclick="openModal(${p.id})">
+          <div class="product-image-container">
+            <div class="badges">
+              ${p.badges.map(b => `<span class="badge-pill">${b}</span>`).join('')}
+            </div>
+            <img src="${p.images[0]}" alt="${p.title}" class="product-img">
+          </div>
+          <h3 class="product-title">${p.title}</h3>
+          <div class="d-flex align-center gap-2" style="margin-top:auto;">
+            <span class="product-price">PKR ${formatPKR(p.price)}</span>
+            ${p.oldPrice ? `<span class="product-price-old">PKR ${formatPKR(p.oldPrice)}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = ''; 
+      
+      let filtered = products;
+      
+      if (searchQuery) {
+        filtered = filtered.filter(p => p.title.toLowerCase().includes(searchQuery));
+        document.getElementById('itemCount').innerText = `${filtered.length} items`;
+        document.getElementById('categoryTitle').innerText = "Search Results";
+        
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #888;">No fragrances found matching your search.</div>`;
+          return;
+        }
+        
+        setTimeout(() => {
+          grid.innerHTML = filtered.map((p, i) => createProductCardHTML(p, i * 0.05)).join('');
+        }, 10);
+        return;
+      }
+
+      if (activeCategory === 'HOME') {
+        document.getElementById('itemCount').innerText = `${products.length} items`;
+        document.getElementById('categoryTitle').innerText = "Explore Our Collections";
+        
+        const categoriesToShow = ["MONTH END SALE", "SUMMER PERFUMES", "BEST SELLERS", "OUR BRANDS"];
+        let html = '';
+        let animDelay = 0;
+        
+        categoriesToShow.forEach(cat => {
+          const catProds = products.filter(p => p.categories.includes(cat));
+          if (catProds.length > 0) {
+            html += `
+              <div class="category-group slide-anim" style="grid-column: 1/-1; margin-top: 32px; margin-bottom: 8px; animation-delay: ${animDelay}s">
+                <h3 class="font-heading" style="font-size: 22px; color: #000; border-bottom: 2px solid var(--accent-gold); display: inline-block; padding-bottom: 4px;">${cat}</h3>
+              </div>
+            `;
+            animDelay += 0.05;
+            
+            catProds.forEach(p => {
+              html += createProductCardHTML(p, animDelay);
+              animDelay += 0.05;
+            });
+          }
+        });
+        
+        setTimeout(() => { grid.innerHTML = html; }, 10);
+        return;
+      }
+
+      if (activeCategory !== 'ALL PRODUCTS') {
+        filtered = filtered.filter(p => p.categories.includes(activeCategory));
+      }
+      
+      document.getElementById('itemCount').innerText = `${filtered.length} items`;
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #888;">No fragrances found in this category.</div>`;
+        return;
+      }
+
+      setTimeout(() => {
+        grid.innerHTML = filtered.map((p, i) => createProductCardHTML(p, i * 0.05)).join('');
+      }, 10);
+    }
+
+    function openModal(id) {
+      currentModalProduct = products.find(p => p.id === id);
+      if (!currentModalProduct) return;
+      
+      currentModalQty = 1;
+      document.getElementById('qtyInput').value = currentModalQty;
+      
+      document.getElementById('modalTitle').innerText = currentModalProduct.title;
+      document.getElementById('modalPrice').innerText = `PKR ${formatPKR(currentModalProduct.price)}`;
+      document.getElementById('modalOldPrice').innerText = currentModalProduct.oldPrice ? `PKR ${formatPKR(currentModalProduct.oldPrice)}` : '';
+      document.getElementById('modalDesc').innerText = currentModalProduct.description;
+      
+      setModalImage(0);
+      
+      const thumbHtml = currentModalProduct.images.map((img, idx) => `
+        <img src="${img}" class="thumb-img ${idx === 0 ? 'active' : ''}" onclick="setModalImage(${idx}, this)">
+      `).join('');
+      document.getElementById('modalThumbnails').innerHTML = thumbHtml;
+      
+      document.getElementById('quickViewModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function setModalImage(idx, el = null) {
+      document.getElementById('modalMainImg').src = currentModalProduct.images[idx];
+      if (el) {
+        document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('quickViewModal').classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+
+    function updateModalQty(change) {
+      currentModalQty = Math.max(1, currentModalQty + change);
+      document.getElementById('qtyInput').value = currentModalQty;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    function generateCartId() { return '_' + Math.random().toString(36).substr(2, 9); }
+
+    function addCurrentModalToCart() {
+      const existing = cart.find(item => item.product.id === currentModalProduct.id);
+      if (existing) {
+        existing.qty += currentModalQty;
+      } else {
+        cart.push({
+          cartId: generateCartId(),
+          product: currentModalProduct,
+          qty: currentModalQty,
+          checked: true
+        });
+      }
+      closeModal();
+      renderCartUI();
+      toggleCart(); 
+      showToast(`${currentModalProduct.title.substring(0,15)}... added!`);
+    }
+
+    function updateCartQty(cartId, change) {
+      const item = cart.find(c => c.cartId === cartId);
+      if (item) {
+        item.qty = Math.max(1, item.qty + change);
+        renderCartUI();
+      }
+    }
+
+    function toggleCartCheck(cartId) {
+      const item = cart.find(c => c.cartId === cartId);
+      if (item) {
+        item.checked = !item.checked;
+        renderCartUI();
+      }
+    }
+
+    function removeCartItem(cartId) {
+      cart = cart.filter(c => c.cartId !== cartId);
+      renderCartUI();
+    }
+
+    function renderCartUI() {
+      const badge = document.getElementById('cartBadge');
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      badge.innerText = totalQty;
+      badge.style.display = totalQty > 0 ? 'flex' : 'none';
+
+      const container = document.getElementById('cartItems');
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#888; margin-top:40px;">Your cart is empty.</p>';
+        document.getElementById('cartTotal').innerText = `PKR 0`;
+        return;
+      }
+
+      let totalCheckedAmount = 0;
+      
+      container.innerHTML = cart.map(item => {
+        if (item.checked) totalCheckedAmount += (item.product.price * item.qty);
+        
+        return `
+        <div class="cart-item">
+          <input type="checkbox" class="cart-item-checkbox" ${item.checked ? 'checked' : ''} onchange="toggleCartCheck('${item.cartId}')" title="Select to order">
+          <img src="${item.product.images[0]}" alt="Img">
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.product.title}</div>
+            <div class="cart-item-price">PKR ${formatPKR(item.product.price)}</div>
+            <div class="cart-qty-controls">
+              <button class="qty-btn-small" onclick="updateCartQty('${item.cartId}', -1)">-</button>
+              <span style="font-size:14px; font-weight:700; color:#000; min-width:24px; text-align:center; display:inline-block;">${item.qty}</span>
+              <button class="qty-btn-small" onclick="updateCartQty('${item.cartId}', 1)">+</button>
+              <button class="cart-remove" onclick="removeCartItem('${item.cartId}')">Remove</button>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('');
+
+      document.getElementById('cartTotal').innerText = `PKR ${formatPKR(totalCheckedAmount)}`;
+    }
+
+    function checkoutWhatsApp() {
+      const selectedItems = cart.filter(item => item.checked);
+      
+      if (selectedItems.length === 0) {
+        showToast("Please check at least one item to order.");
+        return;
+      }
+
+      let msg = "Hello DUHASCENTS, I'd like to place an order:%0A%0A";
+      let total = 0;
+      
+      selectedItems.forEach((item, index) => {
+        const itemTotal = item.product.price * item.qty;
+        total += itemTotal;
+        msg += `${index + 1}. *${item.product.title}*%0A`;
+        msg += `   Quantity: ${item.qty}%0A`;
+        msg += `   Price: PKR ${formatPKR(itemTotal)}%0A%0A`;
+      });
+      
+      msg += `------------------------%0A`;
+      msg += `*Selected Total: PKR ${formatPKR(total)}*%0A`;
+      msg += `------------------------%0A%0A`;
+      msg += `Please guide me with the next steps for delivery.`;
+
+      window.open(`https://wa.me/${CONTACT_PHONE}?text=${msg}`, '_blank');
+    }
+
+    // Initialization on Page Load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Setup the URL routing initial state
+      let hash = decodeURIComponent(window.location.hash.substring(1));
+      if (!hash) hash = 'HOME';
+      
+      renderReviews();
+      navigate(hash, false);
+      renderCartUI();
+    });
+  </script>
+</body>
+</html>
