@@ -22,7 +22,7 @@
     body {
       font-family: 'Inter', sans-serif;
       font-size: 14px;
-      line-height: 1.6; /* Increased for better readability */
+      line-height: 1.6;
       font-weight: 400;
       background-color: var(--color-background);
       color: var(--color-foreground);
@@ -34,7 +34,6 @@
       flex-direction: column;
     }
 
-    /* Fixed Line-Height for Headings to prevent overlap */
     h1, h2, h3, h4, h5, h6, .font-heading { 
       font-family: 'Barlow', sans-serif; 
       line-height: 1.3 !important; 
@@ -158,9 +157,9 @@
     }
     .overlay.open { opacity: 1; pointer-events: all; }
 
-    /* Sidebars */
+    /* Fix applied here: top:0 and bottom:0 instead of 100vh bounds it perfectly to screen space */
     .mobile-sidebar, .cart-sidebar {
-      position: fixed; top: 0; height: 100vh; background: #ffffff; z-index: 200;
+      position: fixed; top: 0; bottom: 0; background: #ffffff; z-index: 200;
       transition: 0.3s ease; display: flex; flex-direction: column;
       box-shadow: 0 0 20px rgba(0,0,0,0.15);
     }
@@ -170,10 +169,11 @@
     .mobile-sidebar .nav-link { color: #fff; font-size: 16px; padding: 12px 0; display: block; border-bottom: 1px solid #333; }
     .mobile-sidebar .nav-link.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
 
-    /* Narrower Cart */
     .cart-sidebar { right: -100%; width: 85%; max-width: 340px; }
     .cart-sidebar.open { right: 0; }
     .cart-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    
+    /* Internal scroll for cart items */
     .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 20px; }
     
     .cart-item { display: flex; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #f5f5f5; align-items: center; }
@@ -190,7 +190,6 @@
     .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 12px; }
     .whatsapp-btn { background: #25D366; color: #fff; width: 100%; font-size: 15px; padding: 14px; border:none; border-radius:34px; font-weight:600; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:8px;}
     
-    /* Main Content */
     main { flex: 1; padding-bottom: 40px; }
     .page-section { display: none; padding: 40px 0; animation: fadeIn 0.4s ease; }
     .page-section.active { display: block; }
@@ -214,11 +213,7 @@
       margin-bottom: 24px; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+    .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
     @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 32px 24px; } }
 
@@ -249,7 +244,6 @@
     .product-price { font-size: 14px; font-weight: 700; margin-top: auto; }
     .product-price-old { text-decoration: line-through; color: #999; font-size: 11px; margin-left: 6px; font-weight: 400; }
 
-    /* Compact Modal Styles */
     .modal {
       position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center;
       padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
@@ -257,7 +251,7 @@
     .modal.open { opacity: 1; pointer-events: all; }
     .modal-content {
       position: relative; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
-      width: 100%; max-width: 800px; max-height: 85vh; /* Reduced sizes */
+      width: 100%; max-width: 800px; max-height: 85vh;
       border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
       display: flex; flex-direction: column; overflow-y: auto; 
       transform: translateY(20px) scale(0.95); transition: all 0.3s ease;
@@ -274,9 +268,8 @@
     .modal-gallery-col { width: 100%; background: #fcfcfc; padding: 16px; display: flex; flex-direction: column; gap: 12px; position:relative;}
     @media (min-width: 768px) { .modal-gallery-col { width: 50%; padding:24px;} }
     
-    /* Swipe Hint Layer */
     .swipe-hint { position: absolute; top: 50%; left: 0; width: 100%; display:flex; justify-content: space-between; padding: 0 20px; pointer-events: none; opacity: 0.3; }
-    .modal-main-img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 12px; border: 1px solid #eee; padding: 16px; touch-action: pan-y; /* allows swipe */ }
+    .modal-main-img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 12px; border: 1px solid #eee; padding: 16px; touch-action: pan-y; }
     
     .modal-thumbnails { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
     .modal-thumbnails::-webkit-scrollbar { height: 3px; }
@@ -304,7 +297,6 @@
     .text-content h2 { color: var(--accent-gold); margin-bottom: 16px; }
     .text-content p { color: #555; margin-bottom: 16px; font-size: 15px; }
 
-    /* Interactive Floating Reviews Marquee */
     .reviews-ticker-wrapper {
       overflow: hidden; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
       padding: 24px 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -314,7 +306,6 @@
       display: flex; gap: 20px; width: max-content;
       animation: marquee 35s linear infinite;
     }
-    /* Pause on hover or touch */
     .reviews-ticker-wrapper:hover .reviews-ticker, 
     .reviews-ticker-wrapper:active .reviews-ticker {
       animation-play-state: paused;
@@ -331,15 +322,14 @@
     
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    /* Floating WhatsApp Icon */
+    /* Fixed overlapping: lower z-index so it hides under overlays appropriately */
     .whatsapp-float {
       position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white;
       border-radius: 50px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 400; transition: transform 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 140; transition: transform 0.3s;
     }
     .whatsapp-float:hover { transform: scale(1.1); color: white; }
 
-    /* Footer */
     footer { background: #fff; padding: 50px 0 30px; border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
     @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -367,7 +357,6 @@
 
   <header class="glass-panel">
     <div class="container d-flex align-center justify-between">
-      
       <button class="icon-btn mobile-menu-btn" onclick="toggleMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
@@ -406,7 +395,6 @@
 
   <div class="overlay" id="mainOverlay" onclick="closeOverlaysUI()"></div>
 
-  <!-- Mobile Menu -->
   <aside class="mobile-sidebar" id="mobileSidebar">
     <div class="d-flex justify-between align-center" style="margin-bottom: 30px;">
       <h2 style="margin:0; font-size: 20px;">MENU</h2>
@@ -426,7 +414,6 @@
     </nav>
   </aside>
 
-  <!-- Cart Sidebar -->
   <aside class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
       <h3 class="font-heading" style="margin:0; font-size:18px;">Your Cart</h3>
@@ -450,7 +437,6 @@
 
   <main class="container">
     
-    <!-- Products View -->
     <div id="view-products" class="page-section active">
       <div class="hero-banner glass-panel">
         <h2 id="pageTitle">Welcome to DUHASCENTS</h2>
@@ -467,7 +453,6 @@
       </div>
     </div>
 
-    <!-- About Us View -->
     <div id="view-about" class="page-section">
       <div class="text-content glass-panel" style="padding: 40px 20px; border-radius: 16px;">
         <h2 class="font-heading" style="font-size: 30px;">About DUHASCENTS</h2>
@@ -476,7 +461,6 @@
       </div>
     </div>
 
-    <!-- Contact Us View -->
     <div id="view-contact" class="page-section">
       <div class="text-content glass-panel" style="padding: 40px 20px; border-radius: 16px;">
         <h2 class="font-heading" style="font-size: 30px;">Contact Us</h2>
@@ -492,7 +476,6 @@
 
   </main>
 
-  <!-- Interactive Floating Reviews Section -->
   <div class="reviews-ticker-wrapper" title="Hold to pause">
     <div class="reviews-ticker" id="reviewsTicker">
       <!-- Injected via JS -->
@@ -534,7 +517,6 @@
     </div>
   </footer>
 
-  <!-- Swipeable Modal -->
   <div class="modal" id="quickViewModal">
     <div class="modal-backdrop" style="position: absolute; inset: 0;" onclick="closeOverlaysUI()"></div>
     <div class="modal-content">
@@ -577,7 +559,6 @@
     </div>
   </div>
 
-  <!-- Floating WhatsApp Contact -->
   <a href="https://wa.me/923446000670" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
   </a>
@@ -608,7 +589,6 @@
     let activeCategory = 'HOME';
     let searchQuery = '';
     
-    // Modal State
     let currentModalProduct = null;
     let currentModalQty = 1;
     let currentImageIdx = 0;
@@ -616,7 +596,6 @@
 
     function formatPKR(num) { return num.toLocaleString('en-PK'); }
 
-    // --- Overlay & History Router Logic ---
     function openOverlayState(id) {
       document.getElementById(id).classList.add('open');
       document.getElementById('mainOverlay').classList.add('open');
@@ -631,36 +610,31 @@
       document.body.style.overflow = 'auto';
     }
 
-    // Called when user clicks an 'X' or backdrop
     function closeOverlaysUI() {
       if(document.getElementById('mainOverlay').classList.contains('open')) {
-        history.back(); // This triggers popstate to safely close UI
+        history.back(); 
       } else if (document.getElementById('searchBar').classList.contains('active')){
         document.getElementById('searchBar').classList.remove('active');
       }
     }
 
-    // Listen to physical back button or history.back()
     window.addEventListener('popstate', (e) => {
       if (document.getElementById('mainOverlay').classList.contains('open')) {
-        // Back button pressed to close overlay
         closeOverlaysDOM();
       } else {
-        // Back button pressed for page navigation
         let hash = decodeURIComponent(window.location.hash.substring(1));
         if (!hash) hash = 'HOME';
         navigate(hash, false);
       }
     });
 
-    // Hash Router Navigation
     function navigate(page, pushToHistory = true) {
       document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.toggle('active', link.innerText.trim().toUpperCase() === page.toUpperCase());
       });
       
-      closeOverlaysDOM(); // Ensure overlays are gone
+      closeOverlaysDOM(); 
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       if (page === 'ABOUT US') {
@@ -685,7 +659,6 @@
       }
     }
 
-    // Interactive Triggers
     function toggleMenu() {
       if (document.getElementById('mobileSidebar').classList.contains('open')) closeOverlaysUI();
       else openOverlayState('mobileSidebar');
@@ -702,7 +675,6 @@
       if (bar.classList.contains('active')) document.getElementById('searchInput').focus();
     }
 
-    // Populating Interactive Reviews
     function renderReviews() {
       const ticker = document.getElementById('reviewsTicker');
       const combinedReviews = [...customerReviews, ...customerReviews, ...customerReviews]; 
@@ -717,7 +689,6 @@
       `).join('');
     }
 
-    // Search and Grid
     function handleSearch(val) {
       searchQuery = val.toLowerCase();
       if(document.getElementById('view-products').classList.contains('active')){
@@ -797,7 +768,6 @@
       setTimeout(() => { grid.innerHTML = filtered.map((p, i) => createProductCardHTML(p, i * 0.05)).join(''); }, 10);
     }
 
-    // Modal Details & Swipe implementation
     function openModal(id) {
       currentModalProduct = products.find(p => p.id === id);
       if (!currentModalProduct) return;
@@ -826,7 +796,6 @@
       document.querySelectorAll('.thumb-img').forEach((t, i) => t.classList.toggle('active', i === idx));
     }
 
-    // Modal Swipe Touch listeners
     const mainImgEl = document.getElementById('modalMainImg');
     mainImgEl.addEventListener('touchstart', e => {
       touchStartX = e.changedTouches[0].screenX;
@@ -835,10 +804,8 @@
     mainImgEl.addEventListener('touchend', e => {
       let touchEndX = e.changedTouches[0].screenX;
       if (touchStartX - touchEndX > 40) {
-        // Swiped Left - Next Image
         if(currentModalProduct && currentImageIdx < currentModalProduct.images.length - 1) setModalImage(currentImageIdx + 1);
       } else if (touchEndX - touchStartX > 40) {
-        // Swiped Right - Prev Image
         if(currentModalProduct && currentImageIdx > 0) setModalImage(currentImageIdx - 1);
       }
     }, {passive: true});
@@ -855,7 +822,6 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     }
 
-    // Cart Actions
     function generateCartId() { return '_' + Math.random().toString(36).substr(2, 9); }
 
     function addCurrentModalToCart() {
@@ -864,12 +830,12 @@
       else {
         cart.push({ cartId: generateCartId(), product: currentModalProduct, qty: currentModalQty, checked: true });
       }
-      closeOverlaysUI(); // close modal safely
+      closeOverlaysUI(); 
       setTimeout(() => {
         renderCartUI();
-        toggleCart(); // open cart
+        toggleCart(); 
         showToast(`${currentModalProduct.title.substring(0,15)}... added!`);
-      }, 150); // slight delay to allow history popstate to resolve
+      }, 150); 
     }
 
     function updateCartQty(cartId, change) {
